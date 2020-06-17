@@ -1,42 +1,84 @@
 //TODO: STEP 1 - Import the useState hook.
 import React,{useState} from "react";
 import "./App.css";
+
+//import components
 import BottomRow from "./BottomRow";
+import Home from './components/Home';
+import Away from './components/Away';
+import Timer from './components/Timer';
+
+
 
 function App() {
   //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
-  const [scoreH,setHomeScore] = useState(0);
-  const [scoreA,setAwayScore] = useState(0);
+  const [homeScore,setHomeScore] = useState(0);
+  const [awayScore,setAwayScore] = useState(0);
   const [time,setTimer] = useState(0.3);
+  const[name,setName]=useState('');
+  const[scoreAmount,setScoreAmount]=useState(0);
+  const[message,setMessage]=useState('');
+
+  console.log('the name is ', name , 'The score Amount is ', scoreAmount);
+
+  const handleChanges = event=>{
+  //   name=
+  //  setName ();
+  //  setScoreAmount(event.target.value);   
+  }
 
   return (
     <div className="container">
+
+ 
       <section className="scoreboard">
+        <h2 className='message'>{message}</h2>
         <div className="topRow">
-          <div className="home">
-            <h2 className="home__name">Lions</h2>
-
-            {/* TODO STEP 3 - We need to change the hardcoded values in these divs to accept dynamic values from our state. */}
-
-            <div className="home__score">{scoreH}</div>
+          <Home homeScore={homeScore}/>
+         
+          <div className="timer" >00.03
+          <Timer setTimer={setTimer}/>
           </div>
-          <div className="timer">00.03</div>
-          <div className="away">
-            <h2 className="away__name">Tigers</h2>
-            <div className="away__score">{scoreA}</div>
-          </div>
+          <Away awayScore={awayScore}/>
         </div>
+
         <BottomRow />
       </section>
+  
       <section className="buttons">
-        <div className="homeButtons">
+      <div className='user_input'>
+      <label htmlFor='name'>Enter Your Name</label>
+      <input id='name'  type='text' name='name' onChange={e=>{
+        return setName(e.target.value);
+      }}/>
+      <label htmlFor='amount'>Enter the scoring amount</label>
+      <input id='amount'  type='number' name='amount' onChange={e=>{
+        return setScoreAmount(e.target.value)}}/>
+    </div>
+       
           {/* TODO STEP 4 - Now we need to attach our state setter functions to click listeners. */}
-          <button className="homeButtons__touchdown" onClick={()=>{setHomeScore(scoreH+7);}}>Home Touchdown</button>
-          <button className="homeButtons__fieldGoal" onClick={()=>{setHomeScore(scoreH+3);}}>Home Field Goal</button>
-        </div>
+          <button className="homeButtons__touchdown"
+           onClick={()=>{setHomeScore(homeScore+7);}}>
+             Home Touchdown</button>
+          <button className="homeButtons__fieldGoal"
+           onClick={()=>{setHomeScore(homeScore+3);}}>
+             Home Field Goal</button>
+             
+       
         <div className="awayButtons">
-          <button className="awayButtons__touchdown" onClick={()=>{setAwayScore(scoreA+7);}}>Away Touchdown</button>
-          <button className="awayButtons__fieldGoal" onClick={()=>{setAwayScore(scoreA+3);}}>Away Field Goal</button>
+          
+          <button className="awayButtons__touchdown" 
+          onClick={()=>{
+            if(scoreAmount<awayScore ){
+              setMessage('Game is over')
+           }
+            else 
+            setAwayScore(awayScore+7);
+          }}>
+            Away Touchdown</button>
+          <button className="awayButtons__fieldGoal" 
+          onClick={()=>{setAwayScore(awayScore+3);}}>
+            Away Field Goal</button>
         </div>
       </section>
     </div>
