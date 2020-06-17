@@ -4,7 +4,7 @@
 }
 
 .scoreboard {
-  width: 58%;
+   width: 58%;
   margin: 10rem auto;
   background-color: #0b5402;
   color: white;
@@ -116,7 +116,8 @@
 .homeButtons__touchdown,
 .homeButtons__fieldGoal,
 .awayButtons__touchdown,
-.awayButtons__fieldGoal {
+.awayButtons__fieldGoal
+ {
   margin: 1rem;
   border-radius: 4px;
 }
